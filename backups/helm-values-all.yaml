@@ -1,0 +1,1433 @@
+COMPUTED VALUES:
+airbyteBootloader:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: true
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/bootloader
+  management:
+    port: 8085
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  resources:
+    limits: {}
+    requests: {}
+  secrets: {}
+  serviceAccountName: null
+  tolerations: []
+connectorBuilderServer:
+  affinity: {}
+  aiAssistUrlBase: ""
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: true
+  env_vars: {}
+  extraContainers: []
+  extraInitContainers: []
+  githubToken: ""
+  githubTokenSecretKey: ""
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/connector-builder-server
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  service:
+    annotations: {}
+    port: 80
+    type: NodePort
+  serviceAccountName: null
+  tolerations: []
+connectorRolloutWorker:
+  activityInitialDelayBetweenAttemptsSeconds: ""
+  activityMaxAttempt: ""
+  activityMaxDelayBetweenAttemptsSeconds: ""
+  affinity: {}
+  annotations: {}
+  containerOrchestrator:
+    enabled: true
+    image: ""
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  githubToken: ""
+  githubTokenSecretKey: ""
+  hpa:
+    enabled: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/connector-rollout-worker
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  serviceAccountName: null
+  tolerations: []
+cron:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: true
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/cron
+  jobs:
+    declarativeSourcesUpdater:
+      enabled: true
+    updateDefinitions:
+      enabled: true
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  secrets: {}
+  serviceAccountName: null
+  tolerations: []
+  workloadApi: {}
+featureflagServer:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraInitContainers: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/featureflag-server
+  ingress:
+    annotations: {}
+    className: ""
+    enabled: false
+    hosts: []
+    tls: []
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  service:
+    port: 8007
+  serviceAccountName: null
+  tolerations: []
+fullnameOverride: ""
+global:
+  airbyteUrl: https://airbyte.fitness22services.com
+  api: {}
+  auth:
+    dataPlane:
+      clientIdSecretKey: ""
+      clientSecretSecretKey: ""
+    enabled: true
+    identityProvider:
+      secretName: ""
+      type: ""
+    instanceAdmin:
+      emailSecretKey: INITIAL_USER_EMAIL
+      firstName: Admin
+      lastName: F22
+      passwordSecretKey: AB_INSTANCE_ADMIN_PASSWORD
+    internalApi: {}
+    security:
+      cookieSameSiteSetting: Strict
+      cookieSecureSetting: true
+      jwtSignatureSecretKey: AB_JWT_SIGNATURE_SECRET
+      secretName: ""
+  aws:
+    assumeRole:
+      accessKeyId: ""
+      accessKeyIdSecretKey: ""
+      secretAccessKeySecretKey: ""
+      secretAcessKey: ""
+  cloudSqlProxy:
+    enabled: false
+  cluster:
+    controlPlane:
+      bootstrap:
+        dataPlane:
+          clientIdSecretKey: ""
+          clientSecretSecretKey: ""
+          secretName: ""
+    dataPlane:
+      controlPlaneAuthEndpoint: ""
+    secretName: ""
+    type: hybrid
+  connectorRegistry:
+    seedProvider: remote
+  connectorRollout:
+    expirationSeconds: null
+    waitBetweenRolloutSeconds: null
+    waitBetweenSyncResultsQueriesSeconds: null
+  customerio:
+    apiKeySecretKey: ""
+    secretName: ""
+  database:
+    host: ""
+    name: ""
+    password: ""
+    port: null
+    secretName: ""
+    type: internal
+    user: ""
+  datadog:
+    enabled: false
+    env: dev
+    integrations:
+      dbm:
+        enabled: false
+        propagationMode: full
+      googleHttpClient:
+        enabled: false
+      grpc:
+        clientEnabled: false
+        enabled: false
+        serverEnabled: false
+      httpUrlConnection:
+        enabled: false
+      kotlinCoroutineExperimental:
+        enabled: false
+      netty:
+        enabled: false
+      netty41:
+        enabled: false
+      urlConnection:
+        enabled: false
+    statsd:
+      port: 8125
+    traceAgentPort: 8126
+  dataplaneGroups: {}
+  edition: community
+  enterprise:
+    licenseKeySecretKey: ""
+    secretName: ""
+  env_vars: {}
+  extraContainers: []
+  extraInitContainers: []
+  extraSelectorLabels: {}
+  featureFlags:
+    client: configfile
+    configfile: {}
+    secretName: ""
+  image:
+    registry: ""
+    tag: ""
+  imagePullSecrets: []
+  java:
+    opts: []
+  jobs:
+    errors:
+      reportingStrategy: logging
+    kube:
+      annotations: {}
+      labels: {}
+      localVolume:
+        enabled: false
+      mainContainerImagePullPolicy: ""
+      mainContainerImagePullSecret: ""
+      nodeSelector: {}
+      scheduling:
+        check:
+          nodeSelectors: {}
+          runtimeClassName: ""
+        discover:
+          nodeSelectors: {}
+          runtimeClassName: ""
+        isolated:
+          nodeSelectors: {}
+          runtimeClassName: ""
+        sourceDeclarativeManifest:
+          nodeSelectors: {}
+          runtimeClassName: ""
+      tolerations: []
+    resources:
+      limits: {}
+      requests: {}
+  local: false
+  logging:
+    httpAccessLogsEnabled: false
+    level: info
+    log4jConfigFile: ""
+  metrics:
+    enabled: false
+    otel:
+      collector:
+        endpoint: ""
+      exporter:
+        metricExportInterval: 10000
+        name: otlp
+        protocol: grpc
+        timeout: 30000
+      resourceAttributes: {}
+    otlp:
+      collectorEndpoint: ""
+      enabled: false
+    statsd:
+      enabled: false
+      flavor: ""
+      host: ""
+      port: ""
+    step: ""
+  micronaut:
+    environments:
+    - k8s
+  migrations:
+    configDb:
+      minimumFlywayMigrationVersion: ""
+    jobsDb:
+      minimumFlywayMigrationVersion: ""
+    runAtStartup: true
+  secretName: ""
+  secrets: {}
+  secretsManager:
+    enabled: false
+    type: ""
+  serviceAccountName: airbyte-admin
+  stigg:
+    apiKeySecretKey: ""
+    secretName: ""
+  storage:
+    bucket:
+      activityPayload: airbyte-bucket
+      auditLogging: airbyte-bucket
+      log: airbyte-bucket
+      state: airbyte-bucket
+      workloadOutput: airbyte-bucket
+    minio:
+      accessKeyId: minio
+      secretAccessKey: minio123
+    secretName: ""
+    type: minio
+  temporal:
+    cli:
+      address: ""
+      namespace: ""
+      tlsCert: ""
+      tlsCertSecretKey: TEMPORAL_CLOUD_CLIENT_CERT
+      tlsKey: ""
+      tlsKeySecretKey: TEMPORAL_CLOUD_CLIENT_KEY
+    cloud:
+      clientCert: ""
+      clientCertSecretKey: TEMPORAL_CLOUD_CLIENT_CERT
+      clientKey: ""
+      clientKeySecretKey: TEMPORAL_CLOUD_CLIENT_KEY
+      enabled: false
+      host: ""
+      namespace: ""
+    sdk:
+      rpc:
+        longPollTimeout: 140s
+        queryTimeout: 20s
+        timeout: 120s
+    secretName: ""
+  topology:
+    nodeSelectorLabel: airbyte/node-pool
+    nodeSelectors:
+      jobsNodePool: jobs
+      mainNodePool: main
+      quickJobsNodePool: quick-jobs
+  tracking:
+    enabled: true
+    secretName: ""
+    segment:
+      writeKey: ""
+      writeKeySecretKey: ""
+    strategy: segment
+  workloads:
+    containerOrchestrator:
+      dataPlane:
+        secretMountPath: ""
+        secretName: ""
+      secretMountPath: ""
+      secretName: ""
+    images:
+      connectorSideCar: ""
+      containerOrchestrator: ""
+      workloadInit: ""
+    namespace: jobs
+    pubSub:
+      enabled: false
+      topicName: ""
+    queues:
+      check:
+      - CHECK_CONNECTION
+      discover:
+      - DISCOVER_SCHEMA
+      sync:
+      - SYNC
+    resources:
+      check:
+        cpu: {}
+        memory: {}
+      discover:
+        cpu: {}
+        memory: {}
+      fileTransfer:
+        storage:
+          limit: 5G
+          request: 5G
+      mainContainer:
+        cpu: {}
+        memory: {}
+      replication:
+        cpu: {}
+        memory: {}
+      sidecar:
+        cpu: {}
+        memory: {}
+      useConnectorResourceDefaults: true
+    secretName: ""
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  className: nginx
+  enabled: true
+  hosts:
+  - host: airbyte.fitness22services.com
+    paths:
+    - backend: server
+      path: /api
+      pathType: Prefix
+    - backend: connector-builder-server
+      path: /connector-builder
+      pathType: Prefix
+    - backend: server
+      path: /
+      pathType: Prefix
+  tls:
+  - hosts:
+    - airbyte.fitness22services.com
+    secretName: airbyte-tls
+keycloak:
+  affinity: {}
+  auth:
+    adminCliClientId: ""
+    adminPassword: airbyte123
+    adminPasswordSecretKey: ""
+    adminRealm: ""
+    adminRealmSecretKey: ""
+    adminUsername: airbyteAdmin
+    adminUsernameSecretKey: ""
+  clientRealm: ""
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 0
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  database:
+    host: ""
+    name: ""
+    password: ""
+    passwordSecretKey: ""
+    user: ""
+    userSecretKey: ""
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraInitContainers: []
+  headlessService:
+    annotations: {}
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/keycloak
+  initContainerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  initContainers:
+    initDb:
+      image: postgres:13-alpine
+  internalBasePath: /auth
+  internalHost: null
+  internalProtocol: http
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  nodeSelector: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  realmIssuer: ""
+  secretName: ""
+  service:
+    annotations: {}
+    port: 8180
+    type: ClusterIP
+  serviceAccountName: null
+  startupProbe:
+    enabled: true
+    failureThreshold: 60
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 1
+  tolerations: []
+  url: ""
+keycloakSetup:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraInitContainers: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/keycloak-setup
+  initContainerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  nodeSelector: {}
+  podSecurityContext:
+    fsGroup: 1000
+  serviceAccountName: null
+  tolerations: []
+manifestServer:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  deploymentStrategyType: RollingUpdate
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraInitContainers: []
+  extraSelectorLabels: {}
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/manifest-server
+    tag: 7.0.4
+  ingress:
+    annotations: {}
+    className: ""
+    enabled: false
+    hosts: []
+    tls: []
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  secrets: {}
+  service:
+    annotations: {}
+    port: 8080
+    type: ClusterIP
+  serviceAccountName: null
+  tolerations: []
+metrics:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/metrics-reporter
+  management:
+    port: 8085
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  secrets: {}
+  serviceAccountName: null
+  tolerations: []
+minio:
+  affinity: {}
+  enabled: true
+  image:
+    repository: minio/minio
+    tag: RELEASE.2023-11-20T22-40-07Z
+  nodeSelector: {}
+  resources:
+    limits:
+      cpu: 300m
+      memory: 2Gi
+    requests:
+      cpu: 250m
+      memory: 1Gi
+  rootPassword: ""
+  rootUser: ""
+  secretName: ""
+  storage:
+    volumeClaimValue: 500Mi
+  tolerations: []
+nameOverride: ""
+postgresql:
+  affinity: {}
+  commonAnnotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-1"
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 70
+    runAsNonRoot: true
+    runAsUser: 70
+    seccompProfile:
+      type: RuntimeDefault
+  enabled: true
+  existingSecret: ""
+  image:
+    repository: airbyte/db
+  nodeSelector: {}
+  podSecurityContext:
+    fsGroup: 70
+  postgresqlDatabase: db-airbyte
+  postgresqlPassword: airbyte
+  postgresqlUsername: airbyte
+  tolerations: []
+server:
+  affinity: {}
+  annotations: {}
+  auditLoggingEnabled: false
+  configDbMaxPoolSize: ""
+  connectorDatadogSupportNames: ""
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  data: {}
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  deploymentStrategyType: Recreate
+  enabled: true
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  httpIdleTimeout: ""
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/server
+  ioExecutor:
+    numThreads: ""
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  openai:
+    syncAssistantApiKey: ""
+    syncAssistantApiKeySecretKey: ""
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  publicApiExecutor:
+    numThreads: ""
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  scheduler:
+    numThreads: ""
+  secrets: {}
+  service:
+    annotations: {}
+    port: 8001
+    type: ClusterIP
+  serviceAccountName: null
+  tolerations: []
+  warehouseExports:
+    bucketName: ""
+    projectId: ""
+  webapp:
+    datadogApplicationId: ""
+    datadogClientToken: ""
+    datadogEnv: ""
+    datadogService: ""
+    datadogSite: ""
+    hockeystackApiKey: ""
+    launchdarklyKey: ""
+    osanoKey: ""
+    posthogApiKey: ""
+    posthogHost: ""
+    segmentToken: ""
+    sonarApiUrl: ""
+    zendeskKey: ""
+serviceAccount:
+  annotations: {}
+  create: true
+  name: airbyte-admin
+stiggSidecar:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hpa:
+    enabled: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: public.ecr.aws/stigg/sidecar
+    tag: 3.56.0
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  service:
+    annotations: {}
+    port: 8800
+    type: ClusterIP
+  serviceAccountName: null
+  tolerations: []
+temporal:
+  affinity: {}
+  annotations: {}
+  autoSetup: true
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  database:
+    engine: postgres12
+    host: ""
+    password: ""
+    passwordSecretKey: ""
+    port: ""
+    user: ""
+    userSecretKey: ""
+  enabled: true
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  host: ""
+  image:
+    pullPolicy: IfNotPresent
+    repository: temporalio/auto-setup
+    tag: 1.27.2
+  livenessProbe:
+    enabled: false
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  prometheus:
+    endpoint: ""
+  readinessProbe:
+    enabled: false
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  sdk:
+    rpc:
+      longPollTimeout: 140s
+      queryTimeout: 20s
+      timeout: 120s
+  secretName: ""
+  service:
+    port: 7233
+    type: ClusterIP
+  serviceAccountName: null
+  tolerations: []
+  worker:
+    ports: ""
+temporalUi:
+  affinity: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 0
+    runAsNonRoot: false
+    runAsUser: 0
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: temporalio/ui
+    tag: 2.30.1
+  livenessProbe:
+    enabled: false
+  management:
+    port: 8085
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: false
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  service:
+    port: 8088
+    type: ClusterIP
+  serviceAccountName: null
+  tolerations: []
+testWebapp:
+  image:
+    repository: airbyte/utils
+  nodeSelector: {}
+version: ""
+webapp:
+  affinity: {}
+  annotations: {}
+  api:
+    url: /api/v1/
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  enabled: false
+  env_vars: {}
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  fullstory:
+    enabled: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/webapp
+  ingress:
+    annotations: {}
+    className: ""
+    enabled: false
+    hosts: []
+    tls: []
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  secrets: {}
+  service:
+    annotations: {}
+    port: 80
+    type: ClusterIP
+  serviceAccountName: null
+  tolerations: []
+worker:
+  activityInitialDelayBetweenAttemptsSeconds: ""
+  activityMaxAttempt: ""
+  activityMaxDelayBetweenAttemptsSeconds: ""
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: true
+  env_vars:
+    CONTAINER_ORCHESTRATOR_ENABLED: true
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hpa:
+    enabled: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/worker
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  log:
+    level: INFO
+  management:
+    port: 8085
+  maxCheckWorkers: ""
+  maxNotifyWorkers: ""
+  maxSyncWorkers: ""
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  serviceAccountName: null
+  tolerations: []
+  workloadApi: {}
+workloadApiServer:
+  affinity: {}
+  annotations: {}
+  bearerToken: token
+  bearerTokenSecretName: ""
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: true
+  env_vars: {}
+  extraContainers: []
+  extraInitContainers: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/workload-api-server
+  ingress:
+    annotations: {}
+    className: ""
+    enabled: false
+    hosts: []
+    tls: []
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  service:
+    annotations: {}
+    port: 8001
+    type: ClusterIP
+  serviceAccountName: null
+  tolerations: []
+  workloadApi: {}
+workloadLauncher:
+  activityInitialDelayBetweenAttemptsSeconds: ""
+  activityMaxAttempt: ""
+  activityMaxDelayBetweenAttemptsSeconds: ""
+  affinity: {}
+  annotations: {}
+  connectorProfiler:
+    image: airbyte/async-profiler:{{ default .Chart.AppVersion .Values.global.image.tag
+      }}
+  connectorSidecar:
+    image: airbyte/connector-sidecar:{{ default .Chart.AppVersion .Values.global.image.tag
+      }}
+  containerOrchestrator:
+    enabled: true
+    image: airbyte/container-orchestrator:{{ default .Chart.AppVersion .Values.global.image.tag
+      }}
+    secretName: ""
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+  controlPlane:
+    tokenEndpoint: ""
+  dataPlane:
+    clientId: ""
+    clientIdSecretKey: ""
+    clientIdSecretName: ""
+    clientSecret: ""
+    clientSecretSecretKey: ""
+    clientSecretSecretName: ""
+    secretName: ""
+  debug:
+    enabled: false
+    remoteDebugPort: 5005
+  enabled: true
+  env_vars: {}
+  extraContainers: []
+  extraEnv:
+  - name: JOB_MAIN_CONTAINER_CPU_REQUEST
+    value: 100m
+  - name: JOB_MAIN_CONTAINER_CPU_LIMIT
+    value: 500m
+  - name: JOB_MAIN_CONTAINER_MEMORY_REQUEST
+    value: 256Mi
+  - name: JOB_MAIN_CONTAINER_MEMORY_LIMIT
+    value: 1Gi
+  - name: REPLICATION_ORCHESTRATOR_CPU_REQUEST
+    value: 200m
+  - name: REPLICATION_ORCHESTRATOR_CPU_LIMIT
+    value: 500m
+  - name: REPLICATION_ORCHESTRATOR_MEMORY_REQUEST
+    value: 256Mi
+  - name: REPLICATION_ORCHESTRATOR_MEMORY_LIMIT
+    value: 1Gi
+  - name: SIDECAR_MAIN_CONTAINER_CPU_REQUEST
+    value: 50m
+  - name: SIDECAR_MAIN_CONTAINER_CPU_LIMIT
+    value: 250m
+  - name: SIDECAR_MAIN_CONTAINER_MEMORY_REQUEST
+    value: 128Mi
+  - name: SIDECAR_MAIN_CONTAINER_MEMORY_LIMIT
+    value: 512Mi
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hpa:
+    enabled: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: airbyte/workload-launcher
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  log:
+    level: INFO
+  management:
+    port: 8085
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 1000
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  serviceAccountName: null
+  tolerations: []
+  workloadApi: {}
+  workloadInit:
+    image: airbyte/workload-init-container:{{ default .Chart.AppVersion .Values.global.image.tag
+      }}

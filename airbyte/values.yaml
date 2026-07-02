@@ -1,0 +1,61 @@
+global:
+  airbyteUrl: https://airbyte.fitness22services.com
+  edition: community
+
+  auth:
+    enabled: true
+    instanceAdmin:
+      firstName: Admin
+      lastName: F22
+      emailSecretKey: INITIAL_USER_EMAIL
+      passwordSecretKey: AB_INSTANCE_ADMIN_PASSWORD
+    security:
+      jwtSignatureSecretKey: AB_JWT_SIGNATURE_SECRET
+
+  workloads:
+    resources:
+      useConnectorResourceDefaults: false
+      mainContainer:
+        cpu:
+          request: "100m"
+          limit: "500m"
+        memory:
+          request: "1Gi"
+          limit: "8Gi"
+      replication:
+        cpu:
+          request: "200m"
+          limit: "500m"
+        memory:
+          request: "512Mi"
+          limit: "2Gi"
+      sidecar:
+        cpu:
+          request: "50m"
+          limit: "250m"
+        memory:
+          request: "128Mi"
+          limit: "512Mi"
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: airbyte.fitness22services.com
+      paths:
+        - path: /api
+          pathType: Prefix
+          backend: server
+        - path: /connector-builder
+          pathType: Prefix
+          backend: connector-builder-server
+        - path: /
+          pathType: Prefix
+          backend: server
+  tls:
+    - secretName: airbyte-tls
+      hosts:
+        - airbyte.fitness22services.com

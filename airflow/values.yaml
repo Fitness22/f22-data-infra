@@ -1,0 +1,203 @@
+airflowVersion: "2.9.3"
+defaultAirflowTag: "2.9.3"
+
+executor: KubernetesExecutor
+
+# Disable bundled PostgreSQL - using Cloud SQL
+postgresql:
+  enabled: false
+
+# Metadata DB connection from secret
+data:
+  metadataSecretName: airflow-secrets
+  resultBackendSecretName: airflow-secrets
+
+# Encryption keys from secret
+fernetKeySecretName: airflow-secrets
+webserverSecretKeySecretName: airflow-secrets
+
+webserver:
+  replicas: 1
+  # Default user disabled - using Google OAuth instead
+  defaultUser:
+    enabled: false
+  resources:
+    requests:
+      cpu: 200m
+      memory: 1Gi
+    limits:
+      cpu: 500m
+      memory: 2Gi
+  # Give the webserver more time to start up with OAuth providers loading
+  startupProbe:
+    failureThreshold: 18   # 18 × 10s = 3 minutes
+    periodSeconds: 10
+    timeoutSeconds: 20
+  livenessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 10
+    failureThreshold: 6
+  readinessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 10
+    failureThreshold: 6
+  # Inject OAuth credentials as env vars for use in webserver_config.py
+  env:
+    - name: AIRFLOW__GOOGLE__CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: airflow-oauth-secrets
+          key: GOOGLE_CLIENT_ID
+    - name: AIRFLOW__GOOGLE__CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: airflow-oauth-secrets
+          key: GOOGLE_CLIENT_SECRET
+  # Google OAuth via Flask-AppBuilder
+  webserverConfig: |
+    import os
+    from airflow.www.fab_security.manager import AUTH_OAUTH
+    from airflow.auth.managers.fab.security_manager.override import FabAirflowSecurityManagerOverride
+
+    AUTH_TYPE = AUTH_OAUTH
+    AUTH_USER_REGISTRATION = True
+    AUTH_USER_REGISTRATION_ROLE = "Viewer"
+
+    OAUTH_PROVIDERS = [
+      {
+        "name": "google",
+        "icon": "fa-google",
+        "token_key": "access_token",
+        "remote_app": {
+          "client_id": os.environ["AIRFLOW__GOOGLE__CLIENT_ID"],
+          "client_secret": os.environ["AIRFLOW__GOOGLE__CLIENT_SECRET"],
+          "api_base_url": "https://www.googleapis.com/oauth2/v2/",
+          "access_token_url": "https://oauth2.googleapis.com/token",
+          "authorize_url": "https://accounts.google.com/o/oauth2/auth",
+          "request_token_url": None,
+          "client_kwargs": {
+            "scope": "email profile",
+          },
+        },
+      }
+    ]
+
+    class GoogleDomainSecurityManager(FabAirflowSecurityManagerOverride):
+      def get_oauth_user_info(self, provider, resp):
+        info = super().get_oauth_user_info(provider, resp)
+        email = info.get("email", "")
+        if not email.endswith("@fitness22.com"):
+          raise Exception(f"Unauthorized domain: {email}")
+        return info
+
+    CUSTOM_SECURITY_MANAGER = GoogleDomainSecurityManager
+
+scheduler:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+
+triggerer:
+  enabled: true
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+
+# DAGs via git-sync from Bitbucket
+dags:
+  gitSync:
+    enabled: true
+    repo: git@github.com:Fitness22/f22airflow.git
+    branch: main
+    rev: HEAD
+    depth: 1
+    period: 60s
+    subPath: "airflow/dags"
+    sshKeySecret: airflow-git-ssh-secret
+    extraVolumeMounts: []
+    env:
+      - name: GITSYNC_SUBMODULES
+        value: "off"
+
+logs:
+  persistence:
+    enabled: false
+
+env:
+  - name: AIRFLOW__CORE__LOAD_EXAMPLES
+    value: "False"
+  # Enable basic_auth on the REST API (in addition to session) so service accounts
+  # can trigger DAGs programmatically. UI login is unaffected — it still uses
+  # Google OAuth via webserver_config.py.
+  - name: AIRFLOW__API__AUTH_BACKENDS
+    value: "airflow.api.auth.backend.session,airflow.api.auth.backend.basic_auth"
+  - name: AIRFLOW__LOGGING__REMOTE_LOGGING
+    value: "True"
+  - name: AIRFLOW__LOGGING__REMOTE_BASE_LOG_FOLDER
+    value: "gs://f22-airflow-logs"
+  - name: AIRFLOW__LOGGING__REMOTE_LOG_CONN_ID
+    value: "google_cloud_default"
+  # Non-secret runtime config migrated from Composer
+  - name: WORKOUTS_DB_START_DATE
+    value: "2025-12-01"
+  - name: APPSFLYER_GCS_CACHE_BUCKET
+    value: "f22data-cache"
+  - name: revcat_export_v2_app_names
+    value: '["10k-runner-ios", "5k-runner-ios"]'
+  # Extra packages not bundled in the base Airflow 2.9.3 image.
+  # Excludes airflow core, providers-google, google-auth, pandas, pendulum, requests
+  # (already present in the image) and test deps (not needed at runtime).
+  - name: _PIP_ADDITIONAL_REQUIREMENTS
+    value: "pymongo==4.6.0 dnspython==2.4.2 python-dotenv==1.0.0"
+
+# Secrets from airflow-pipeline-secrets K8s secret — injected into all pods including task pods
+secret:
+  - envName: APPFIGURES_BEARER
+    secretName: airflow-pipeline-secrets
+    secretKey: APPFIGURES_BEARER
+  - envName: APPFIGURES_API_KEY
+    secretName: airflow-pipeline-secrets
+    secretKey: APPFIGURES_API_KEY
+  - envName: APPSFLYER_API_KEY
+    secretName: airflow-pipeline-secrets
+    secretKey: APPSFLYER_API_KEY
+  - envName: SLACK_WEBHOOK_URL
+    secretName: airflow-pipeline-secrets
+    secretKey: SLACK_WEBHOOK_URL
+    
+
+# Ingress - nginx + cert-manager (same pattern as Airbyte on this cluster)
+ingress:
+  web:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - name: airflow.fitness22services.com
+        tls:
+          enabled: true
+          secretName: airflow-tls
+
+# Disable unused components
+flower:
+  enabled: false
+
+redis:
+  enabled: false
+
+statsd:
+  enabled: true
